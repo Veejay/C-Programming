@@ -44,33 +44,60 @@ int hash(char *key, int size){
 int put(hashtable *ht, key_value* kv)
 {
   // First we need to determinate the proper hash for that key/value pair
-  char *key = kv->key; 
-  int hash = hash(key, ht->size);
+  /* char *key = kv->key; */ 
+  /* int hashed_value = hash(key, ht->size); */
 
   // Now we can access the proper bucket and store the data
-  
+  return 0; 
 }
 
 // Retrieves the key_value stored in the hash table based on the key hash
-key_value* get(hash_table *ht, char *key)
+key_value* get(hashtable *ht, char *key)
 {
-  // CODE HERE
+  return NULL; 
 } 
 
 // Deletes the record associated to the key in the hash table
-int delete(hash_table *ht, char *key)
+int delete(hashtable *ht, char *key)
 {
+  return 0; 
 
 }
 
 /************************* HELPERS ************************************/
 
-int linked_list_insert(linked_list *list, key_value* kv){
+int linked_list_insert(linked_list *list, key_value kv){
+  linked_list *head = malloc(sizeof(linked_list));
+  head->kv = kv;
+  head->next = list;
+  list = head;
+  free(head);
+  return 0;
+}
+
+// Mainly used for testing of insert function
+void print_linked_list(linked_list *list)
+{
+  int i = 0;
+  while((list)){
+    printf("Element #%d: %s\n", i, list->kv.value);
+    list = list->next;
+    i++;
+  }
 }
 
 /**********************************************************************/
 
 int main()
 {
+  key_value kv1 = {.key="foo", .value="Bertrand Chardon"};
+  key_value kv2 = {.key="goo", .value="Bertrand Chrdon"};
+  key_value kv3 = {.key="hoo", .value="Bertrand hardon"};
+
+  linked_list *l = NULL;
+
+  linked_list_insert(l, kv1);
+  print_linked_list(l); 
+
   return 0;
 }
