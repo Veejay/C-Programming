@@ -34,17 +34,14 @@ int hash(char *key, int size){
 // Should return a status code to give information about the operation I guess...
 // If the key already exists in the hash table, updates the record 
 // If it doesn't, stores it
-int put(hashtable *ht, key_value* kv)
+int put(hashtable *ht, key_value kv)
 {
   // First we need to determinate the proper hash for that key/value pair
-  char *key = kv->key; 
+  char *key = kv.key; 
   int hashed_value = hash(key, ht->size);
   
   // Now we can access the proper bucket and store the data
-  // FIXME: This is extra ugly (ideally the inser function 
-  // returns a status code but I couldn't make that work)
-  ht->table[hashed_value] = linked_list_insert(ht->table[hashed_value], *kv);
-  return 0; 
+  return linked_list_insert(ht->table[hashed_value], kv);
 }
 
 // Retrieves the key_value stored in the hash table based on the key hash
