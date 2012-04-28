@@ -1,3 +1,5 @@
+#include "linked_list.h"
+
 typedef struct hashtable {
   int size;
   linked_list *table[];

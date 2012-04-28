@@ -1,3 +1,10 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define LL_KEY_NOT_FOUND 99;
+#define LL_DELETE_OK 0;
+
 typedef struct key_value{
   char *key;
   char *value;

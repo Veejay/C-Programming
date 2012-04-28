@@ -1,12 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-
-#include "linked_list.h"
-
-typedef struct hashtable {
-  int size;
-  linked_list *table[];
-} hashtable;
+#include "hash_table.h"
 
 // FIXME: Implementation is naive for now
 int hash(char *key, int size)

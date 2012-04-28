@@ -1,19 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-
-#define LL_KEY_NOT_FOUND 99;
-#define LL_DELETE_OK 0;
-
-typedef struct key_value{
-  char *key;
-  char *value;
-} key_value;
-
-typedef struct linked_list {
-  key_value kv; 
-  struct linked_list *next;
-} linked_list;
-
+#include "linked_list.h"
 
 void print_linked_list(linked_list *list)
 {
