@@ -40,9 +40,26 @@ key_value linked_list_get(linked_list *l, char *key)
   return l->kv;
 }
 
+
 int has_key(linked_list *list, char *key)
 {
   return list && (strcmp(list->kv.key, key) == 0);
+}
+
+int key_position(linked_list *list, char *key)
+{
+  int position = -1;
+  int i = 1;
+  while(list){
+    if(has_key(list, key)){
+      return position + i;
+    }
+    else{
+      i++;
+      list = list->next;
+    }
+  }
+  return position;
 }
 
 int linked_list_delete(linked_list **l, char *key)
@@ -155,6 +172,7 @@ int main()
   linked_list_insert(&l, kv3);
 
   print_linked_list(l);
+  printf("Position de Sylvain Lebresne dans la liste: %d\n", key_position(l, "Bertrand"));
 
   printf("=========================\n");
   printf("VALUE FOR KEY Bertrand: %s\n", linked_list_get(l, "Bertrand").value);
