@@ -15,8 +15,6 @@ typedef struct linked_list {
 } linked_list;
 
 
-/***************** FUNCTIONS ************************/
-
 void print_linked_list(linked_list *list)
 {
   int i = 0;

@@ -8,9 +8,6 @@ typedef struct hashtable {
   linked_list *table[];
 } hashtable;
 
-
-/*************************** FUNCTIONS ********************************/
-// This is the epicenter of all the hash operations
 // FIXME: Implementation is naive for now
 int hash(char *key, int size)
 {
