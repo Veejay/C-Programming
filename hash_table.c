@@ -24,13 +24,6 @@ typedef struct hashtable {
 
 /************************* HELPERS ************************************/
 
-int linked_list_insert(linked_list **list, key_value kv){
-  linked_list *tmp = *list; 
-  *list = malloc(sizeof(linked_list));
-  (*list)->kv = kv;
-  (*list)->next = tmp;
-  return 0; 
-}
 
 key_value linked_list_get(linked_list *l, char *key)
 {
@@ -60,6 +53,30 @@ int key_position(linked_list *list, char *key)
     }
   }
   return position;
+}
+
+int linked_list_put(linked_list **list, key_value kv){
+  linked_list *head = *list;
+  // FIXME: Find something better for that -1... maybe KEY_NOT_IN_LIST
+  int position = key_position(*list, kv.key);
+  if(position == -1){
+    linked_list *tmp = *list; 
+    *list = malloc(sizeof(linked_list));
+    (*list)->kv = kv;
+    (*list)->next = tmp;
+    return 0;
+  }
+  else{
+    // We know where the key/value pair is, fast-forward
+    int i;
+    for(i = 0; i < position; i++){
+      *list = (*list)->next;
+    }
+    // We're at the right position, update
+    (*list)->kv.value = kv.value;
+    *list = head;
+    return 0;
+  } 
 }
 
 int linked_list_delete(linked_list **l, char *key)
@@ -122,7 +139,7 @@ int put(hashtable *ht, key_value kv)
   int hashed_value = hash(key, ht->size);
 
   // Now we can access the proper bucket and store the data
-  return linked_list_insert(&(ht->table[hashed_value]), kv);
+  return linked_list_put(&(ht->table[hashed_value]), kv);
 }
 
 // Retrieves the key_value stored in the hash table based on the key hash
@@ -161,15 +178,18 @@ int main()
   key_value kv4 = {.key="Sylvain", .value="Lebresne"};
   key_value kv5 = {.key="Ignacy", .value="Gawędzki"};
   key_value kv6 = {.key="Cédric", .value="Miachon"};
+  key_value kv7 = {.key="Cédric", .value="Miachonskyevich"};
+
 
   linked_list *l = NULL;
 
-  linked_list_insert(&l, kv1);
-  linked_list_insert(&l, kv4);
-  linked_list_insert(&l, kv5);
-  linked_list_insert(&l, kv6);
-  linked_list_insert(&l, kv2);
-  linked_list_insert(&l, kv3);
+  linked_list_put(&l, kv1);
+  linked_list_put(&l, kv4);
+  linked_list_put(&l, kv5);
+  linked_list_put(&l, kv6);
+  linked_list_put(&l, kv2);
+  linked_list_put(&l, kv3);
+  linked_list_put(&l, kv7);
 
   print_linked_list(l);
   printf("Position de Sylvain Lebresne dans la liste: %d\n", key_position(l, "Bertrand"));
