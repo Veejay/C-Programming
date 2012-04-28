@@ -47,31 +47,38 @@ int has_key(linked_list *list, char *key)
 
 int linked_list_delete(linked_list **l, char *key)
 {
-  // Saving that for later, don't know if it's necessary :/
   linked_list *head = *l;
+  linked_list *prev;
   
-  // As long as we don't find the key and the end of the list
-  // hasn't been reached, keep going forward
+  // The key we're looking for is at head, special case
+  if(has_key(*l, key)){
+    linked_list *cleaner = *l;
+    *l = (*l)->next;
+    free(cleaner);
+    return LL_DELETE_OK;
+  }
+
   while((*l) && !has_key((*l), key)){
+    prev = *l;
     (*l) = (*l)->next;
   }
-  // We've reached the end of the list but the key still doesn't match
-  // it's a no show
+  // Reached end of the list, no show
   if(!has_key((*l), key)){
+    *l = head;
     return LL_KEY_NOT_FOUND;
   }
-  // There's a match for the key, we need to copy the content of the next node
-  // into the current one and remove that next node for good
   else{ 
     if((*l)->next){
-      linked_list *tmp = (*l)->next;
-      (*l)->kv = tmp->kv;
-      (*l)->next = tmp->next;
+      linked_list *tmp = *l;
+      prev->next = (*l)->next;
       free(tmp);
-      *l = head;
     }
+    // Special case if the element to delete is the last element
     else{
+      free(prev->next);
+      prev->next = NULL; 
     }
+    *l = head;
     return LL_DELETE_OK;
   }
 }
@@ -153,18 +160,24 @@ int main()
   printf("VALUE FOR KEY Bertrand: %s\n", linked_list_get(l, "Bertrand").value);
   printf("=========================\n");
 
-  printf("DELETING ELEMENT WITH KEY Cédric\n");
-  linked_list_delete(&l, "Cédric");
+  printf("DELETING ELEMENT WITH KEY foobar\n");
+  linked_list_delete(&l, "foobar");
   
-  printf("DELETING ELEMENT WITH KEY Guillaume\n");
-  linked_list_delete(&l, "Guillaume");
+  printf("DELETING ELEMENT WITH KEY moobar\n");
+  linked_list_delete(&l, "moobar");
 
-  
-  printf("DELETING ELEMENT WITH KEY Bertrand\n");
-  linked_list_delete(&l, "Bertrand");
-
+  printf("We just deleted two values that didn't exist in the list\n");
   printf("\n=========================\n");
   print_linked_list(l);
+  
+  printf("\n=========================\n");
+  printf("DELETING ELEMENT WITH KEY Kim\n");
+  linked_list_delete(&l, "Kim");
+  print_linked_list(l);
 
+  printf("DELETING ELEMENT WITH KEY Bertrand\n");
+  linked_list_delete(&l, "Bertrand");
+  printf("\n=========================\n");
+  print_linked_list(l);
   return 0;
 }
