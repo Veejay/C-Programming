@@ -142,7 +142,7 @@ int main()
   key_value kv2 = {.key="Guillaume", .value="Leconte"};
   key_value kv3 = {.key="Kim", .value="Nguyen"};
   key_value kv4 = {.key="Sylvain", .value="Lebresne"};
-  key_value kv5 = {.key="Ignacy", .value="Gawedzki"};
+  key_value kv5 = {.key="Ignacy", .value="Gawędzki"};
   key_value kv6 = {.key="Cédric", .value="Miachon"};
 
   linked_list *l = NULL;
