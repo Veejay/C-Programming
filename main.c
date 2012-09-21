@@ -11,25 +11,21 @@ int main()
   key_value kv6 = {.key="Cédric", .value="Miachon"};
   key_value kv7 = {.key="Guillaume", .value="Miachonskyevich"};
   
-  hashtable* h = new_hash_table(8);
-  put(h, kv1);
-  put(h, kv2);
-  put(h, kv3);
-  put(h, kv4);
-  put(h, kv5);
-  put(h, kv6);
-  put(h, kv7);
+  /* hashtable* h = new_hash_table(8); */
+  /* put(h, kv1); */
+  /* put(h, kv2); */
+  /* put(h, kv3); */
+  /* put(h, kv4); */
+  /* put(h, kv5); */
+  /* put(h, kv6); */
+  /* put(h, kv7); */
 
-  key_value kv;
-  kv = get(h, "Bertrand");
-  printf("La valeur récupérée est %s\n", kv.value);
+  /* key_value kv; */
+  /* kv = get(h, "Bertrand"); */
+  /* printf("La valeur récupérée est %s\n", kv.value); */
   
-  kv = get(h, "Guillaume");
-  printf("La valeur récupérée est %s\n", kv.value);
-
-  kv = get(h, "ImaginaryKey");
-  printf("La valeur récupérée est %s\n", kv.value);
-
+  /* kv = get(h, "Guillaume"); */
+  /* printf("La valeur récupérée est %s\n", kv.value); */
 
   linked_list *l = NULL;
 
@@ -42,30 +38,30 @@ int main()
   linked_list_put(&l, kv7);
 
   print_linked_list(l);
-  printf("Position de Sylvain Lebresne dans la liste: %d\n", key_position(l, "Bertrand"));
+  /* printf("Position de Sylvain Lebresne dans la liste: %d\n", key_position(l, "Bertrand")); */
 
-  printf("=========================\n");
-  printf("VALUE FOR KEY Bertrand: %s\n", linked_list_get(l, "Bertrand").value);
-  printf("=========================\n");
+  /* printf("=========================\n"); */
+  /* printf("VALUE FOR KEY Bertrand: %s\n", linked_list_get(l, "Bertrand").value); */
+  /* printf("=========================\n"); */
 
-  printf("DELETING ELEMENT WITH KEY foobar\n");
-  linked_list_delete(&l, "foobar");
+  /* printf("DELETING ELEMENT WITH KEY foobar\n"); */
+  /* linked_list_delete(&l, "foobar"); */
   
-  printf("DELETING ELEMENT WITH KEY moobar\n");
-  linked_list_delete(&l, "moobar");
+  /* printf("DELETING ELEMENT WITH KEY moobar\n"); */
+  /* linked_list_delete(&l, "moobar"); */
 
-  printf("We just deleted two values that didn't exist in the list\n");
-  printf("\n=========================\n");
-  print_linked_list(l);
+  /* printf("We just deleted two values that didn't exist in the list\n"); */
+  /* printf("\n=========================\n"); */
+  /* print_linked_list(l); */
   
-  printf("\n=========================\n");
-  printf("DELETING ELEMENT WITH KEY Kim\n");
-  linked_list_delete(&l, "Kim");
-  print_linked_list(l);
+  /* printf("\n=========================\n"); */
+  /* printf("DELETING ELEMENT WITH KEY Kim\n"); */
+  /* linked_list_delete(&l, "Kim"); */
+  /* print_linked_list(l); */
 
-  printf("DELETING ELEMENT WITH KEY Bertrand\n");
-  linked_list_delete(&l, "Bertrand");
-  printf("\n=========================\n");
-  print_linked_list(l);
-  return 0;
+  /* printf("DELETING ELEMENT WITH KEY Bertrand\n"); */
+  /* linked_list_delete(&l, "Bertrand"); */
+  /* printf("\n=========================\n"); */
+  /* print_linked_list(l); */
+  /* return 0; */
 }

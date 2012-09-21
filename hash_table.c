@@ -39,16 +39,22 @@ put(hashtable *ht, key_value kv)
   return linked_list_put(&(ht->table[hashed_value]), kv);
 }
 
-key_value 
+char* 
 get(hashtable *ht, char *key)
 {
   unsigned int hashed_value = hash(key, ht->size); 
-  return linked_list_get(ht->table[hashed_value], key);
+  char *result;
+  if(linked_list_get(ht->table[hashed_value], key, &result)) {
+    return result;
+  }
+  else {
+    return NULL;
+  }
 } 
 
-int 
-destroy(hashtable *ht, char *key)
-{
-  unsigned int hashed_value = hash(key, ht->size); 
-  return linked_list_delete(&(ht->table[hashed_value]), key); 
-}
+/* int */ 
+/* destroy(hashtable *ht, char *key) */
+/* { */
+/*   unsigned int hashed_value = hash(key, ht->size); */ 
+/*   return linked_list_delete(&(ht->table[hashed_value]), key); */ 
+/* } */

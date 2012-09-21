@@ -19,7 +19,7 @@ hash(char *key, int size);
 int 
 put(hashtable *ht, key_value kv);
 
-key_value 
+char*
 get(hashtable *ht, char *key);
 
 int 
