@@ -3,18 +3,6 @@
 int main()
 {
 
-  key_value k = {.key="Bertrand", .value="Chardon"};
-  hashtable* h = new_hash_table(8);
-  int status_code = put(h, k);
-  printf("Le code est %d\n", status_code);
-
-  printf("\nRésultat du hash sur la chaine Bertrand: %d\n", hash("Bertrand", 8));
-
-
-  key_value kv = get(h, "Bertrand");
-  printf("La valeur récupérée est %s\n", kv.value);
-
-
   key_value kv1 = {.key="Bertrand", .value="Chardon"};
   key_value kv2 = {.key="Guillaume", .value="Leconte"};
   key_value kv3 = {.key="Kim", .value="Nguyen"};
@@ -22,6 +10,25 @@ int main()
   key_value kv5 = {.key="Ignacy", .value="Gawędzki"};
   key_value kv6 = {.key="Cédric", .value="Miachon"};
   key_value kv7 = {.key="Guillaume", .value="Miachonskyevich"};
+  
+  hashtable* h = new_hash_table(8);
+  put(h, kv1);
+  put(h, kv2);
+  put(h, kv3);
+  put(h, kv4);
+  put(h, kv5);
+  put(h, kv6);
+  put(h, kv7);
+
+  key_value kv;
+  kv = get(h, "Bertrand");
+  printf("La valeur récupérée est %s\n", kv.value);
+  
+  kv = get(h, "Guillaume");
+  printf("La valeur récupérée est %s\n", kv.value);
+
+  kv = get(h, "ImaginaryKey");
+  printf("La valeur récupérée est %s\n", kv.value);
 
 
   linked_list *l = NULL;

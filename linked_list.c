@@ -34,10 +34,16 @@ int key_position(linked_list *list, char *key)
 // GET
 key_value linked_list_get(linked_list *l, char *key)
 {
-  while(strcmp(l->kv.key, key) != 0){
+  key_value not_found = {.key=NULL, .value=NULL};
+  while(l && (strcmp(l->kv.key, key) != 0)){
     l = l->next;
   }
-  return l->kv;
+  if(l){
+    return l->kv;
+  }
+  else{
+    return not_found;
+  }
 }
 
 // PUT

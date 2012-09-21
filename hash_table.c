@@ -12,26 +12,29 @@ new_hash_table(int num_buckets)
   
   ht->size = num_buckets;
   ht->table = malloc(num_buckets * sizeof(*ht->table)); 
-  
+  int i;
+  for(i = 0; i < num_buckets; i++){
+    ht->table[i] = NULL;
+  }
   return ht;
 }
 
 // FIXME: Implementation is naive for now
-int 
+unsigned int 
 hash(char *key, int size)
 {
-  int r, hash;
+  unsigned int r = 0u, hash = 0u;
   while((r = *key++)){
     hash += r;
   }
-  return hash % size;
+  return (hash % size);
 }
 
 int 
 put(hashtable *ht, key_value kv)
 {
   char *key = kv.key; 
-  int hashed_value = hash(key, ht->size);
+  unsigned int hashed_value = hash(key, ht->size);
 
   return linked_list_put(&(ht->table[hashed_value]), kv);
 }
@@ -39,13 +42,13 @@ put(hashtable *ht, key_value kv)
 key_value 
 get(hashtable *ht, char *key)
 {
-  int hashed_value = hash(key, ht->size); 
+  unsigned int hashed_value = hash(key, ht->size); 
   return linked_list_get(ht->table[hashed_value], key);
 } 
 
 int 
 destroy(hashtable *ht, char *key)
 {
-  int hashed_value = hash(key, ht->size); 
+  unsigned int hashed_value = hash(key, ht->size); 
   return linked_list_delete(&(ht->table[hashed_value]), key); 
 }

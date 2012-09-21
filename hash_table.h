@@ -7,13 +7,13 @@
 
 typedef struct hashtable {
   int size;
-  linked_list *table[];
+  linked_list **table;
 } hashtable;
 
 hashtable*
 new_hash_table(int num_buckets);
 
-int 
+unsigned int 
 hash(char *key, int size);
 
 int 
