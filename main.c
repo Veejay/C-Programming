@@ -2,6 +2,19 @@
 
 int main()
 {
+
+  key_value k = {.key="Bertrand", .value="Chardon"};
+  hashtable* h = new_hash_table(8);
+  int status_code = put(h, k);
+  printf("Le code est %d\n", status_code);
+
+  printf("\nRésultat du hash sur la chaine Bertrand: %d\n", hash("Bertrand", 8));
+
+
+  key_value kv = get(h, "Bertrand");
+  printf("La valeur récupérée est %s\n", kv.value);
+
+
   key_value kv1 = {.key="Bertrand", .value="Chardon"};
   key_value kv2 = {.key="Guillaume", .value="Leconte"};
   key_value kv3 = {.key="Kim", .value="Nguyen"};
