@@ -14,21 +14,19 @@ int main()
   linked_list *l = NULL;
 
   linked_list_put(&l, kv1);
-
+  linked_list_put(&l, kv7);
   linked_list_put(&l, kv4);
-  linked_list_put(&l, kv5);
   linked_list_put(&l, kv6);
+  linked_list_put(&l, kv5);
   linked_list_put(&l, kv2);
   linked_list_put(&l, kv3);
-  linked_list_put(&l, kv7);
 
-  char *result;
+  print_linked_list(l);
+  char *result = NULL;
 
   linked_list_get(l, "Bertrand", &result);
 
   printf("La valeur récupérée dans la liste chainée pour la clé Bertrand est %s\n", result);
-
-  print_linked_list(l);
 
   hashtable* h = new_hash_table(8);
   put(h, kv1);
@@ -40,34 +38,7 @@ int main()
   put(h, kv7);
 
   key_value kv;
-  result = get(h, "Bertrand", &result);
-  printf("La valeur récupérée pour la clé Bertrand est %s\n", result);
-  
-  result = get(h, "Guillaume", &result);
-  printf("La valeur récupérée pour la clé Guillaume est %s\n", result);
-
-  result = get(h, "ImaginaryKey", &result);
-  printf("La valeur récupérée pour la clé ImaginaryKey est %s\n", result);
-  
-
-  /* printf("DELETING ELEMENT WITH KEY foobar\n"); */
-  /* linked_list_delete(&l, "foobar"); */
-  
-  /* printf("DELETING ELEMENT WITH KEY moobar\n"); */
-  /* linked_list_delete(&l, "moobar"); */
-
-  /* printf("We just deleted two values that didn't exist in the list\n"); */
-  /* printf("\n=========================\n"); */
-  /* print_linked_list(l); */
-  
-  /* printf("\n=========================\n"); */
-  /* printf("DELETING ELEMENT WITH KEY Kim\n"); */
-  /* linked_list_delete(&l, "Kim"); */
-  /* print_linked_list(l); */
-
-  /* printf("DELETING ELEMENT WITH KEY Bertrand\n"); */
-  /* linked_list_delete(&l, "Bertrand"); */
-  /* printf("\n=========================\n"); */
-  /* print_linked_list(l); */
+  int status = get(h, "Bertrand", &result);
+  printf("VALEUR ASSOCIEE A LA CLE BERTRAND DANS LA HASH TABLE: %s\n", result);
   return 0;
 }

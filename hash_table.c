@@ -39,17 +39,15 @@ put(hashtable *ht, key_value kv)
   return linked_list_put(&(ht->table[hashed_value]), kv);
 }
 
-char* 
+int 
 get(hashtable *ht, char *key, char **result)
 {
   unsigned int hashed_value = hash(key, ht->size); 
-  if(linked_list_get(ht->table[hashed_value], key, result)) {
-    printf("\nFOUND THE FUCKING KEY\n");
-    return *result;
+  if(linked_list_get(ht->table[hashed_value], key, result) == 0) {
+    return 0; 
   }
   else {
-    printf("\nCOULDN'T FIND THE FUCKING KEY\n");
-    return NULL;
+    return -1; 
   }
 } 
 
