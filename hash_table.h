@@ -1,26 +1,28 @@
 #include "linked_list.h"
 
-/* typedef enum { */
-/*   HASH_ALLOC_SUCCESS = 0, */
-/*   HASH_ALLOC_FAILURE = -1 */
-/* } hash_table_alloc_status */
+typedef enum hash_table_status_codes {
+  HT_ENOMEM = -1,
+  HT_PUT_OK = 0,
+  HT_CREATE_OK = 0,
+  HT_DELETE_OK = 0,
+  HT_VALUE_FOUND = 0,
+  HT_VALUE_NOT_FOUND = -1,
+  HT_UNKNOWN_ERROR = -2
+} ht_status_code; 
 
 typedef struct hashtable {
   int size;
   linked_list **table;
 } hashtable;
 
-hashtable*
-new_hash_table(int num_buckets);
+ht_status_code
+new_hash_table(int num_buckets, hashtable **ht);
 
-unsigned int 
-hash(char *key, int size);
-
-int 
+ht_status_code 
 put(hashtable *ht, key_value kv);
 
-int
+ht_status_code
 get(hashtable *ht, char *key, char **result);
 
-int 
+ht_status_code
 destroy(hashtable *ht, char *key);

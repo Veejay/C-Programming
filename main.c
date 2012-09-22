@@ -26,9 +26,10 @@ int main()
 
   linked_list_get(l, "Bertrand", &result);
 
-  printf("La valeur récupérée dans la liste chainée pour la clé Bertrand est %s\n", result);
-
-  hashtable* h = new_hash_table(8);
+  printf("Valeur pour la clé \"Bertrand\" est %s\n", result);
+  
+  hashtable* h;
+  new_hash_table(8, &h);
   put(h, kv1);
   put(h, kv2);
   put(h, kv3);
