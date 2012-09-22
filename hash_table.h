@@ -20,7 +20,7 @@ int
 put(hashtable *ht, key_value kv);
 
 char*
-get(hashtable *ht, char *key);
+get(hashtable *ht, char *key, char **result);
 
 int 
 destroy(hashtable *ht, char *key);

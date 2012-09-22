@@ -11,25 +11,10 @@ int main()
   key_value kv6 = {.key="Cédric", .value="Miachon"};
   key_value kv7 = {.key="Guillaume", .value="Miachonskyevich"};
   
-  /* hashtable* h = new_hash_table(8); */
-  /* put(h, kv1); */
-  /* put(h, kv2); */
-  /* put(h, kv3); */
-  /* put(h, kv4); */
-  /* put(h, kv5); */
-  /* put(h, kv6); */
-  /* put(h, kv7); */
-
-  /* key_value kv; */
-  /* kv = get(h, "Bertrand"); */
-  /* printf("La valeur récupérée est %s\n", kv.value); */
-  
-  /* kv = get(h, "Guillaume"); */
-  /* printf("La valeur récupérée est %s\n", kv.value); */
-
   linked_list *l = NULL;
 
   linked_list_put(&l, kv1);
+
   linked_list_put(&l, kv4);
   linked_list_put(&l, kv5);
   linked_list_put(&l, kv6);
@@ -37,12 +22,33 @@ int main()
   linked_list_put(&l, kv3);
   linked_list_put(&l, kv7);
 
-  print_linked_list(l);
-  /* printf("Position de Sylvain Lebresne dans la liste: %d\n", key_position(l, "Bertrand")); */
+  char *result;
 
-  /* printf("=========================\n"); */
-  /* printf("VALUE FOR KEY Bertrand: %s\n", linked_list_get(l, "Bertrand").value); */
-  /* printf("=========================\n"); */
+  linked_list_get(l, "Bertrand", &result);
+
+  printf("La valeur récupérée dans la liste chainée pour la clé Bertrand est %s\n", result);
+
+  print_linked_list(l);
+
+  hashtable* h = new_hash_table(8);
+  put(h, kv1);
+  put(h, kv2);
+  put(h, kv3);
+  put(h, kv4);
+  put(h, kv5);
+  put(h, kv6);
+  put(h, kv7);
+
+  key_value kv;
+  result = get(h, "Bertrand", &result);
+  printf("La valeur récupérée pour la clé Bertrand est %s\n", result);
+  
+  result = get(h, "Guillaume", &result);
+  printf("La valeur récupérée pour la clé Guillaume est %s\n", result);
+
+  result = get(h, "ImaginaryKey", &result);
+  printf("La valeur récupérée pour la clé ImaginaryKey est %s\n", result);
+  
 
   /* printf("DELETING ELEMENT WITH KEY foobar\n"); */
   /* linked_list_delete(&l, "foobar"); */
@@ -63,5 +69,5 @@ int main()
   /* linked_list_delete(&l, "Bertrand"); */
   /* printf("\n=========================\n"); */
   /* print_linked_list(l); */
-  /* return 0; */
+  return 0;
 }

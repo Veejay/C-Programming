@@ -40,21 +40,22 @@ put(hashtable *ht, key_value kv)
 }
 
 char* 
-get(hashtable *ht, char *key)
+get(hashtable *ht, char *key, char **result)
 {
   unsigned int hashed_value = hash(key, ht->size); 
-  char *result;
-  if(linked_list_get(ht->table[hashed_value], key, &result)) {
-    return result;
+  if(linked_list_get(ht->table[hashed_value], key, result)) {
+    printf("\nFOUND THE FUCKING KEY\n");
+    return *result;
   }
   else {
+    printf("\nCOULDN'T FIND THE FUCKING KEY\n");
     return NULL;
   }
 } 
 
-/* int */ 
-/* destroy(hashtable *ht, char *key) */
-/* { */
-/*   unsigned int hashed_value = hash(key, ht->size); */ 
-/*   return linked_list_delete(&(ht->table[hashed_value]), key); */ 
-/* } */
+int 
+destroy(hashtable *ht, char *key)
+{
+  unsigned int hashed_value = hash(key, ht->size); 
+  return linked_list_delete(&(ht->table[hashed_value]), key); 
+}

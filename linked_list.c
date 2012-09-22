@@ -11,11 +11,11 @@ print_linked_list(linked_list *list)
   }
 }
 
-static linked_list** 
+linked_list** 
 find_key(linked_list **list, char *key)
 {
   linked_list **current = list;
-  while(!(*current && (strcmp((*current)->kv.key, key)))){
+  while(*current && !strcmp((*current)->kv.key, key)) {
     current = &((*current)->next);
   }
   return current; 
