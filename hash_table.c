@@ -7,22 +7,28 @@
 ht_status_code
 new_hash_table(int num_buckets, hashtable **ht)
 {
-  *ht = malloc(sizeof(*ht));
-  if(!(*ht)){
-    return HT_ENOMEM;
-  }
-  (*ht)->size = num_buckets;
-  (*ht)->table = malloc(num_buckets * sizeof((*ht)->table)); 
-  if(!(*ht)->table){
-    return HT_ENOMEM;
-  }
-  else{
-    int i;
-    for(i = 0; i < num_buckets; i++){
-      (*ht)->table[i] = NULL;
-    }
+  hashtable *h = *ht; // One less indirection, easier to grok 
+  int i;
+
+  h = malloc(sizeof *h);
+  if(! h)
+    goto bad; 
+
+  h->size = num_buckets;
+  h->table = malloc(num_buckets * sizeof *h->table); 
+  if(! h->table)
+    goto bad; 
+
+  for(i = 0; i < num_buckets; i++){
+    h->table[i] = NULL;
   }
   return HT_CREATE_OK; 
+
+bad:
+  if(h){ // Couldn't allocate memory for the buckets 
+    free(h);
+  }
+  return HT_ENOMEM;
 }
 
 // This function is used internally to compute the number of the bucket

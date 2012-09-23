@@ -23,6 +23,9 @@ typedef struct linked_list {
 void 
 print_linked_list(linked_list *list);
 
+linked_list** 
+find_key(linked_list **list, char *key);
+
 ll_status_code
 linked_list_get(linked_list *l, char *key, char **value);
 

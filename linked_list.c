@@ -17,7 +17,7 @@ print_linked_list(linked_list *list)
 // This function tries to find the parameter "key" in the parameter "list"
 // It either returns a linked_list* pointer for subsequent deletes/puts/gets
 // or a NULL value if the key cannot be found
-static linked_list** 
+linked_list** 
 find_key(linked_list **list, char *key)
 {
   linked_list **current = list;
@@ -54,27 +54,28 @@ linked_list_get(linked_list *l, char *key, char **value)
 // 
 // Returns either:
 // - LL_PUT_OK on a successful UPDATE/PATCH
-// - LL_ENOMEM if it fails to allocate sufficient memory for a 
+// -v LL_ENOMEM if it fails to allocate sufficient memory for a 
 //   new key/value pair
 ll_status_code
 linked_list_put(linked_list **list, key_value kv)
 {
+  linked_list *l = *list;
   linked_list **found = find_key(list, kv.key);
   if(*found){
-    (*found)->kv.value = kv.value;
+    free((*found)->kv.value);
+    (*found)->kv.value = strdup(kv.value);
     return LL_PUT_OK; 
   }
   else{
     // Just insert the new key/value at HEAD
-    linked_list *tmp = *list; 
-    *list = malloc(sizeof(linked_list));
-
-    if(*list == NULL) {
+    linked_list *tmp = *l; 
+    l = malloc(sizeof *l);
+    if(! l) {
       return LL_ENOMEM; 
     }
     else {
-      (*list)->kv = kv;
-      (*list)->next = tmp;
+      l->kv = {.key=strdup(kv.key), .value=strdup(kv.value)}; 
+      l->next = tmp;
       return LL_PUT_OK; 
     }
   } 
@@ -87,6 +88,8 @@ linked_list_delete(linked_list **list, char *key){
   if (*found) {
     cleaner = *found;
     *found = (*found)->next;
+    free(cleaner->kv.value);
+    free(cleaner->kv.key);
     free(cleaner);
   }
   return LL_DELETE_OK;
