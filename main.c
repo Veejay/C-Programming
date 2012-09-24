@@ -2,8 +2,8 @@
 
 int main()
 {
-
   key_value kv1 = {.key="Bertrand", .value="Chardon"};
+  key_value kv9 = {.key="Bertrand", .value="Bolton"};
   key_value kv2 = {.key="Guillaume", .value="Leconte"};
   key_value kv3 = {.key="Kim", .value="Nguyen"};
   key_value kv4 = {.key="Sylvain", .value="Lebresne"};
@@ -14,30 +14,20 @@ int main()
   linked_list *l = NULL;
 
   linked_list_put(&l, kv1);
-  linked_list_put(&l, kv7);
-  linked_list_put(&l, kv4);
-  linked_list_put(&l, kv6);
-  linked_list_put(&l, kv5);
-  linked_list_put(&l, kv2);
-  linked_list_put(&l, kv3);
-
-  print_linked_list(l);
-  linked_list **elem = find_key(&l, "Bertrand");
-
-  (*elem)->kv.value = "FOOBAR"; 
-
+  linked_list_put(&l, kv9);
 
   print_linked_list(l);
   char *result = NULL;
 
-  linked_list_get(l, "Bertrand", &result);
-
-  printf("Valeur pour la clé \"Bertrand\" est %s\n", result);
-  
   hashtable *h = NULL;
-  printf("VALEUR DE h QUI EST UN POINTEUR DE HASHTABLE DANS MAIN: %p\n", (void*)&h);
-  new_hash_table(8, &h);
+  ht_status_code sc = new_hash_table(8, &h);
+  if(sc == HT_CREATE_OK){
+    printf("SUCCESSFULLY ALLOCATED MEMORY FOR HASH TABLE\n");
+  }
+  printf("SIZE OF HASH TABLE: %d\n", (int)h->size);
   put(h, kv1);
+  int status = get(h, "Bertrand", &result);
+  printf("VALEUR ASSOCIEE A LA CLE BERTRAND DANS LA HASH TABLE: %s\n", result);
   /* put(h, kv2); */
   /* put(h, kv3); */
   /* put(h, kv4); */
@@ -45,7 +35,5 @@ int main()
   /* put(h, kv6); */
   /* put(h, kv7); */
 
-  /* int status = get(h, "Bertrand", &result); */
-  /* printf("VALEUR ASSOCIEE A LA CLE BERTRAND DANS LA HASH TABLE: %s\n", result); */
   return 0;
 }

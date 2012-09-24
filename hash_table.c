@@ -22,6 +22,7 @@ new_hash_table(int num_buckets, hashtable **ht)
   for(i = 0; i < num_buckets; i++){
     h->table[i] = NULL;
   }
+  *ht = h;
   return HT_CREATE_OK; 
 
 bad:
@@ -54,7 +55,6 @@ put(hashtable *ht, key_value kv)
 {
   char *key = kv.key; 
   unsigned int hashed_value = hash(key, ht->size);
-
   ll_status_code sc = linked_list_put(&(ht->table[hashed_value]), kv);
 
   // GOD, THAT IS ONE UGLY-ASS PATTERN :/

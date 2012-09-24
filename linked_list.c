@@ -6,9 +6,9 @@ void
 print_linked_list(linked_list *list)
 {
   int i = 0;
-  char *template = "Element #%d: {key:\"%s\", value: \"%s\"}\n"; 
+  char *element_template = "Element #%d: {key:\"%s\", value: \"%s\"}\n"; 
   while((list)){
-    printf(template, i, list->kv.key, list->kv.value);
+    printf(element_template, i, list->kv.key, list->kv.value);
     list = list->next;
     i++;
   }
@@ -59,8 +59,14 @@ linked_list_get(linked_list *l, char *key, char **value)
 ll_status_code
 linked_list_put(linked_list **list, key_value kv)
 {
-  linked_list *l = *list;
+  char *key = strdup(kv.key);
+  if(! key)
+    goto bad;
+  char *value = strdup(kv.value);
+  if(! value)
+    goto bad;
   linked_list **found = find_key(list, kv.key);
+  
   if(*found){
     free((*found)->kv.value);
     (*found)->kv.value = strdup(kv.value);
@@ -68,17 +74,20 @@ linked_list_put(linked_list **list, key_value kv)
   }
   else{
     // Just insert the new key/value at HEAD
-    linked_list *tmp = *l; 
-    l = malloc(sizeof *l);
-    if(! l) {
-      return LL_ENOMEM; 
-    }
+    linked_list *tmp = *list; 
+    *list = malloc(sizeof **list);
+    if(! *list)
+      goto bad;
     else {
-      l->kv = {.key=strdup(kv.key), .value=strdup(kv.value)}; 
-      l->next = tmp;
+      (*list)->kv.key = key;
+      (*list)->kv.value = value;
+      (*list)->next = tmp;
       return LL_PUT_OK; 
     }
   } 
+bad:
+  // TODO: free the memory if needed
+  return LL_ENOMEM;
 }
 
 ll_status_code 
